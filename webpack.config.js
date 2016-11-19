@@ -13,12 +13,13 @@ var definePlugin = new webpack.DefinePlugin({
 });
 
 module.exports = {
-  entry: {
-    app: [
-      'babel-polyfill',
-      path.resolve(__dirname, 'src/game.js')
-    ]
-  },
+  // entry: {
+  //   app: [
+  //     'babel-polyfill',
+  //     path.resolve(__dirname, 'src/game.js')
+  //   ]
+  // },
+  entry : './src/game.ts',
   devtool: 'source-map',
   output: {
     pathinfo: true,
@@ -26,6 +27,9 @@ module.exports = {
     publicPath: './dist/',
     filename: 'bundle.js'
   },
+  resolve: {
+    extensions: ['', '.js', '.ts'],
+  },  
   watch: true,
   plugins: [
     definePlugin,
@@ -40,10 +44,11 @@ module.exports = {
   ],
   module: {
     loaders: [
-      { test: /\.js$/, loader: 'babel', include: path.join(__dirname, 'src') },
+      // { test: /\.js$/, loader: 'babel', include: path.join(__dirname, 'src') },
       { test: /pixi\.js/, loader: 'expose?PIXI' },
       { test: /phaser-split\.js$/, loader: 'expose?Phaser' },
-      { test: /p2\.js/, loader: 'expose?p2' }
+      { test: /p2\.js/, loader: 'expose?p2' },
+      { test: /\.ts?$/, loader: 'ts', exclude: '/node_modules/' }
     ]
   },
   node: {
