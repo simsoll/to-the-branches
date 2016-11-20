@@ -27,9 +27,6 @@ module.exports = {
     publicPath: './dist/',
     filename: 'bundle.js'
   },
-  resolve: {
-    extensions: ['', '.js', '.ts'],
-  },  
   watch: true,
   plugins: [
     definePlugin,
@@ -55,6 +52,7 @@ module.exports = {
     fs: 'empty'
   },
   resolve: {
+    extensions: ['', '.js', '.ts'],
     alias: {
       'phaser': phaser,
       'pixi': pixi,

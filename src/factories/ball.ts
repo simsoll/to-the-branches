@@ -1,6 +1,7 @@
+import { Factory } from './factory'
 import { BALL_SPRITE_KEY } from '../common/sprites';
 
-export const ballFactoryWrapper = (game: Phaser.Game) => {
+export const getBallFactory = (game: Phaser.Game) => {
 	const factory = new Phaser.GameObjectFactory(game);
 
 	const create = (x: number, y: number): Ball => {
@@ -22,7 +23,7 @@ export const ballFactoryWrapper = (game: Phaser.Game) => {
 
 	return {
 		create: create
-    }
+    } as Factory<Ball>;
 }
 
 export interface Ball {

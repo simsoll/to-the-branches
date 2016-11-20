@@ -1,6 +1,7 @@
+import { Factory } from './factory'
 import { PADDLE_SPRITE_KEY } from '../common/sprites';
 
-export const paddleFactoryWrapper = (game: Phaser.Game) => {
+export const getPaddleFactory = (game: Phaser.Game) => {
 	const factory = new Phaser.GameObjectFactory(game);
 
 	const create = (x: number, y: number): Paddle => {		
@@ -33,7 +34,7 @@ export const paddleFactoryWrapper = (game: Phaser.Game) => {
 
 	return {
 		create: create
-    }
+    } as Factory<Paddle>
 }
 
 export interface Paddle {

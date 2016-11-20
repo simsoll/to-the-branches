@@ -5,7 +5,7 @@
   "author": "Simon Søllingvraa <simon@soellingvraa.dk>",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack",
+    "dev": "webpack --display-error-details",
     "deploy": "webpack --config webpack.production.config.js",
     "test": "standard"
   },
