@@ -16,9 +16,7 @@ export const getBallFactory = (game: Phaser.Game) => {
         sprite.body.collideWorldBounds = true;
         sprite.anchor.set(0.5);     
 
-        return {
-            sprite: sprite
-        } as Ball;   
+        return Object.assign(sprite) as Ball;   
     } 
 
 	return {
@@ -26,6 +24,5 @@ export const getBallFactory = (game: Phaser.Game) => {
     } as Factory<Ball>;
 }
 
-export interface Ball {
-	sprite: Phaser.Sprite
+export interface Ball extends Phaser.Sprite {
 }

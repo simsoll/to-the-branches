@@ -32,11 +32,11 @@ export const playState = (game: Phaser.Game) => {
         };
     }
 
-    const ballHitPaddle = (ball: Phaser.Sprite, paddle: Phaser.Sprite) => {
+    const ballHitPaddle = (ball: Ball, paddle: Paddle) => {
         ball.body.velocity.x = -1 * 5 * (paddle.x - ball.x);
     };
 
-    const ballHitBrick = (ball: Phaser.Sprite, brick: Phaser.Sprite) => {
+    const ballHitBrick = (ball: Ball, brick: Brick) => {
         brick.kill();
     };
 
@@ -58,7 +58,7 @@ export const playState = (game: Phaser.Game) => {
 	            // Create the brick at the correct position
 	            const brick = factories.brickFactory.create(55 + i * 60, 55 + j * 35);
 	
-	            state.bricks.add(brick.sprite);
+	            state.bricks.add(brick);
 	        }
 	    }   
 
@@ -75,13 +75,13 @@ export const playState = (game: Phaser.Game) => {
         state.inputService.update();
 
         // Add collisions between the paddle and the ball
-        game.physics.arcade.collide(state.ball.sprite, state.paddle.sprite, ballHitPaddle);
+        game.physics.arcade.collide(state.ball, state.paddle, ballHitPaddle);
 
         // Call the 'hit' function when the ball hits a brick
-        game.physics.arcade.collide(state.ball.sprite, state.bricks, ballHitBrick);
+        game.physics.arcade.collide(state.ball, state.bricks, ballHitBrick);
 
         // If the ball is below the paddle then game over!
-        if (state.ball.sprite.y > state.paddle.sprite.y) {
+        if (state.ball.y > state.paddle.y) {
             game.state.start(LOSE_STATE);
         }
 

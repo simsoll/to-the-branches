@@ -10,9 +10,7 @@ export const getBrickFactory = (game: Phaser.Game) => {
         // Make sure the brick won't move when the ball hits it
         sprite.body.immovable = true;
   
-        return {
-            sprite
-        } as Brick;   
+        return Object.assign(sprite) as Brick;   
     } 
 
 	return {
@@ -20,6 +18,5 @@ export const getBrickFactory = (game: Phaser.Game) => {
     } as Factory<Brick>
 }
 
-export interface Brick {
-	sprite: Phaser.Sprite;
+export interface Brick extends Phaser.Sprite {
 }

@@ -24,12 +24,11 @@ export const getPaddleFactory = (game: Phaser.Game) => {
 		    sprite.body.velocity.x = 0;
 		};
 
-        return {
-            sprite: sprite,
+        return Object.assign(sprite, {
             moveLeft: moveLeft,
             moveRight: moveRight,
-            stop: stop
-        } as Paddle;
+            stop: stop            
+        });
     } 
 
 	return {
@@ -37,8 +36,7 @@ export const getPaddleFactory = (game: Phaser.Game) => {
     } as Factory<Paddle>
 }
 
-export interface Paddle {
-    sprite: Phaser.Sprite;
+export interface Paddle extends Phaser.Sprite {
     moveLeft(): void;
     moveRight(): void;
     stop(): void;
