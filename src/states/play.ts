@@ -64,8 +64,8 @@ export const playState = (game: Phaser.Game) => {
 
         // Setup input service
 		state.inputService = servicesWrapper(game).inputService;
-        state.inputService.addListeners(Phaser.Keyboard.LEFT, state.paddle.moveLeft, state.paddle.stop, state.paddle);
-        state.inputService.addListeners(Phaser.Keyboard.RIGHT, state.paddle.moveRight, state.paddle.stop, state.paddle);
+        state.inputService.addListeners(Phaser.Keyboard.LEFT, state.paddle.moveLeft, () => {}, state.paddle);
+        state.inputService.addListeners(Phaser.Keyboard.RIGHT, state.paddle.moveRight, () => {}, state.paddle);
     }
 
     
@@ -73,6 +73,8 @@ export const playState = (game: Phaser.Game) => {
         // Here we update the game 60 times per second
 
         state.inputService.update();
+
+        state.paddle.refresh();
 
         // Add collisions between the paddle and the ball
         game.physics.arcade.collide(state.ball, state.paddle, ballHitPaddle);
