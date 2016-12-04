@@ -1,5 +1,5 @@
 import { Factory } from './factory'
-import { PLAYER_IDLE_SPRITE_KEY } from '../common/sprites';
+import { PLAYER_IDLE_SPRITE_KEY } from '../common/keys';
 
 export interface Player extends Phaser.Sprite {
     moveLeft(): void;

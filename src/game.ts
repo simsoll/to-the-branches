@@ -8,7 +8,7 @@ import * as states from './states';
 import { BOOT_STATE } from './common/states';
 
 window.onload = () => {
-	let game = new Phaser.Game(400, 450, Phaser.AUTO, 'content');
+	let game = new Phaser.Game(640, 480, Phaser.AUTO, 'content');
 
 	Object.keys(states).forEach(state => game.state.add(state, states[state](game)));
 

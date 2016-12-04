@@ -3,6 +3,13 @@ import { getInputService, InputService } from '../services/input';
 
 import { LOSE_STATE, WIN_STATE } from '../common/states';
 
+import { 
+	TILES_TILEMAP_KEY,  
+    TILES_IMAGE_KEY,
+    TILES_TILEMAP_NAME_KEY,
+    LAYER_KEY
+} from '../common/keys';
+
 import { getPlayerFactory, Player } from '../factories/player';
 
 interface PlayState {
@@ -29,6 +36,13 @@ export const playState = (game: Phaser.Game) => {
     const create = () => {
         // Add the physics engine to all the game objetcs
         game.world.enableBody = true;
+
+		let map = game.add.tilemap(TILES_TILEMAP_KEY);
+        map.addTilesetImage(TILES_TILEMAP_NAME_KEY, TILES_IMAGE_KEY);
+		
+		let layer = map.createLayer(LAYER_KEY);
+        layer.resizeWorld();
+
 
 		const factories = factoriesWrapper(game);
 
