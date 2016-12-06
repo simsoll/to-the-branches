@@ -1,5 +1,8 @@
 import { Factory } from './factory'
-import { PLAYER_IDLE_SPRITE_KEY } from '../common/keys';
+import { 
+    PLAYER_IDLE_SPRITE_KEY,
+    PLAYER_ATTACK_SPRITE_KEY
+} from '../common/keys';
 
 export interface Player extends Phaser.Sprite {
     moveLeft(): void;
@@ -44,8 +47,8 @@ export const getPlayerFactory = (game: Phaser.Game) => {
     }
 
 	const create = (x: number, y: number): Player => {		
-		let sprite = factory.sprite(x, y, PLAYER_IDLE_SPRITE_KEY);
-        sprite.animations.add(ANIMATION_IDLE_KEY, Array.from(Array(4).keys()));
+		let sprite = factory.sprite(x, y, PLAYER_ATTACK_SPRITE_KEY);
+        sprite.animations.add(ANIMATION_ATTACK_KEY, Array.from(Array(13).keys()));
 
         sprite.anchor.set(0.5,1);
 
@@ -74,12 +77,13 @@ export const getPlayerFactory = (game: Phaser.Game) => {
             actions.clear();
         };
 
-        sprite.animations.play(ANIMATION_IDLE_KEY, 6, true, false);
-        sprite.scale.set(4);
+        // sprite.animations.play(ANIMATION_IDLE_KEY, 6, true, false);
+        // sprite.scale.set(4);
 
         return Object.assign(sprite, {
             moveLeft: moveLeft,
             moveRight: moveRight,
+            attack: attack,
             refresh: refresh
         }) as Player;
     } 

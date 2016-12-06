@@ -29,7 +29,7 @@ export const playState = (game: Phaser.Game) => {
 
     const servicesWrapper = (game: Phaser.Game) => {
 	    return {
-            inputService: getInputService(game.input.keyboard, [Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGHT]) 
+            inputService: getInputService(game.input.keyboard, [Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGHT, Phaser.Keyboard.SPACEBAR]) 
         };
     }
 
@@ -52,6 +52,7 @@ export const playState = (game: Phaser.Game) => {
 		state.inputService = servicesWrapper(game).inputService;
         state.inputService.addListeners(Phaser.Keyboard.LEFT, state.player.moveLeft, () => {}, state.player);
         state.inputService.addListeners(Phaser.Keyboard.RIGHT, state.player.moveRight, () => {}, state.player);
+        state.inputService.addListeners(Phaser.Keyboard.SPACEBAR, state.player.attack, () => {}, state.player);
     }
 
     
