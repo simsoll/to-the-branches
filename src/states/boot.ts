@@ -6,6 +6,10 @@ export const bootState = (game: Phaser.Game) =>  {
 
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
+        // Add the physics engine to all the game objetcs
+        game.world.enableBody = true;
+        
+
         game.state.start(LOAD_STATE);
     };
 

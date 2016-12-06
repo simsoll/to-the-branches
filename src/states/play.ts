@@ -14,7 +14,8 @@ import { getPlayerFactory, Player } from '../factories/player';
 
 interface PlayState {
 	player?: Player;
-    inputService?: InputService
+    inputService?: InputService;
+    layer: Phaser.TilemapLayer;
 }
 
 export const playState = (game: Phaser.Game) => {
@@ -34,19 +35,16 @@ export const playState = (game: Phaser.Game) => {
     }
 
     const create = () => {
-        // Add the physics engine to all the game objetcs
-        game.world.enableBody = true;
-
 		let map = game.add.tilemap(TILES_TILEMAP_KEY);
         map.addTilesetImage(TILES_TILEMAP_NAME_KEY, TILES_IMAGE_KEY);
 		
-		let layer = map.createLayer(LAYER_KEY);
-        layer.resizeWorld();
-
+		state.layer = map.createLayer(LAYER_KEY);
+        state.layer.resizeWorld();
+        map.setCollisionBetween(1, 2, true, state.layer);
 
 		const factories = factoriesWrapper(game);
 
-		state.player = factories.playerFactory.create(200,400);
+		state.player = factories.playerFactory.create(100,400);
 
         // Setup input service
 		state.inputService = servicesWrapper(game).inputService;
@@ -58,12 +56,19 @@ export const playState = (game: Phaser.Game) => {
     
     const update = () => {
         state.inputService.update();
+        game.physics.arcade.collide(state.player, state.layer);
 
         state.player.refresh();
     }
 
+    const render = () => {
+        game.debug.bodyInfo(state.player, 32, 32);
+        game.debug.body(state.player);
+    }
+
 	return {
         create: create,
-        update: update
+        update: update,
+        render: render
     } as Phaser.State;    
 };

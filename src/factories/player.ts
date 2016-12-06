@@ -1,7 +1,8 @@
 import { Factory } from './factory'
 import { 
     PLAYER_IDLE_SPRITE_KEY,
-    PLAYER_ATTACK_SPRITE_KEY
+    PLAYER_ATTACK_SPRITE_KEY,
+    PLAYER_KEY
 } from '../common/keys';
 
 export interface Player extends Phaser.Sprite {
@@ -38,26 +39,28 @@ export const getPlayerFactory = (game: Phaser.Game) => {
         });
     };
 	const attack = () => {
-        actions.add({
-            kind: "attack",                 
-            playAnimation: (animationManager: Phaser.AnimationManager) => {
-                animationManager.play(ANIMATION_ATTACK_KEY, 20, false, false);
-            } 
-        });
+        // actions.add({
+        //     kind: "attack",                 
+        //     playAnimation: (animationManager: Phaser.AnimationManager) => {
+        //         animationManager.play(ANIMATION_ATTACK_KEY, 20, false, false);
+        //     } 
+        // });
     }
 
 	const create = (x: number, y: number): Player => {		
-		let sprite = factory.sprite(x, y, PLAYER_ATTACK_SPRITE_KEY);
-        sprite.animations.add(ANIMATION_ATTACK_KEY, Array.from(Array(13).keys()));
-
+		let sprite = factory.sprite(x, y, PLAYER_KEY);
+        // sprite.animations.add(ANIMATION_ATTACK_KEY, Array.from(Array(13).keys()));
+		
         sprite.anchor.set(0.5,1);
 
-        // Make sure the paddle won't move when it hits the ball
-        sprite.body.immovable = true;
+		//resize body as sprite is larger than the actual border
+		sprite.body.setSize(16, 32, 8, 0);
+        sprite.body.bounce.y = 0.2;
+        sprite.body.gravity.y = 50;
         sprite.body.collideWorldBounds = true;
 
 		//ensure velocity descreases over time when the player is inactive
-        sprite.body.drag.x = 200;
+        sprite.body.drag.x = 800;
 
         const refresh = () => {
             actions.forEach((action: Action) => {

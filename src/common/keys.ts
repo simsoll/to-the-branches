@@ -1,6 +1,7 @@
 //SPRITES
 export const PLAYER_ATTACK_SPRITE_KEY = 'player-attack';
 export const PLAYER_IDLE_SPRITE_KEY = 'player-idle';
+export const PLAYER_KEY = 'player';
 
 //IMAGES
 export const TILES_IMAGE_KEY = 'tiles';
