@@ -6,6 +6,7 @@ import {
 } from '../common/keys';
 
 export interface Player extends Phaser.Sprite {
+    jump(): void;
     moveLeft(): void;
     moveRight(): void;
 	attack(): void;
@@ -38,6 +39,19 @@ export const getPlayerFactory = (game: Phaser.Game) => {
             } 
         });
     };
+
+	const jump = () => {
+        actions.add({
+            kind: "jump",
+            transform: (sprite: Phaser.Sprite) => {
+                if (sprite.body.onFloor()) {
+					sprite.body.velocity.y = -500;
+                }
+                return sprite;
+            }
+        });
+    };
+
 	const attack = () => {
         // actions.add({
         //     kind: "attack",                 
@@ -55,8 +69,8 @@ export const getPlayerFactory = (game: Phaser.Game) => {
 
 		//resize body as sprite is larger than the actual border
 		sprite.body.setSize(16, 32, 8, 0);
-        sprite.body.bounce.y = 0.2;
-        sprite.body.gravity.y = 50;
+        sprite.body.bounce.y = 0.1;
+        sprite.body.gravity.y = 800;
         sprite.body.collideWorldBounds = true;
 
 		//ensure velocity descreases over time when the player is inactive
@@ -67,6 +81,7 @@ export const getPlayerFactory = (game: Phaser.Game) => {
                 switch(action.kind) {
                     case "left": 
                     case "right": 
+                    case "jump": 
                     	sprite = action.transform(sprite);
                         break;
                     case "attack":
@@ -84,6 +99,7 @@ export const getPlayerFactory = (game: Phaser.Game) => {
         // sprite.scale.set(4);
 
         return Object.assign(sprite, {
+            jump: jump,
             moveLeft: moveLeft,
             moveRight: moveRight,
             attack: attack,
@@ -96,7 +112,7 @@ export const getPlayerFactory = (game: Phaser.Game) => {
     } as Factory<Player>
 }
 
-type Action = Left | Right | Attack;
+type Action = Left | Right | Jump | Attack;
 
 interface Transform {
     transform(sprite: Phaser.Sprite): Phaser.Sprite;
@@ -112,6 +128,10 @@ interface Left extends Transform {
 
 interface Right extends Transform {
     kind: "right";
+}
+
+interface Jump extends Transform {
+    kind: "jump";
 }
 
 interface Attack extends PlayAnimation {

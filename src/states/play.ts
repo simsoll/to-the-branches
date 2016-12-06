@@ -50,7 +50,7 @@ export const playState = (game: Phaser.Game) => {
 		state.inputService = servicesWrapper(game).inputService;
         state.inputService.addListeners(Phaser.Keyboard.LEFT, state.player.moveLeft, () => {}, state.player);
         state.inputService.addListeners(Phaser.Keyboard.RIGHT, state.player.moveRight, () => {}, state.player);
-        state.inputService.addListeners(Phaser.Keyboard.SPACEBAR, state.player.attack, () => {}, state.player);
+        state.inputService.addListeners(Phaser.Keyboard.SPACEBAR, state.player.jump, () => {}, state.player);
     }
 
     
