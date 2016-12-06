@@ -1,5 +1,6 @@
 import { MENU_STATE, PLAY_STATE } from '../common/states';
 import { 
+    ENEMY_KEY,
     PLAYER_ATTACK_SPRITE_KEY, 
     PLAYER_IDLE_SPRITE_KEY, 
     PLAYER_KEY,
@@ -15,9 +16,10 @@ export const loadState = (game: Phaser.Game) => {
         game.load.tilemap(TILES_TILEMAP_KEY, 'assets/tilemaps/maps/level1.json', null, Phaser.Tilemap.TILED_JSON);
 		game.load.image(TILES_IMAGE_KEY, 'assets/tilemaps/tiles/ground-tiles.png');
 
+        game.load.spritesheet(ENEMY_KEY, './assets/images/enemy.png', 32, 32);
         game.load.spritesheet(PLAYER_ATTACK_SPRITE_KEY, './assets/images/swordsman-attack.png', 64, 64);
         game.load.spritesheet(PLAYER_IDLE_SPRITE_KEY, './assets/images/swordsman-idle.png', 64, 64);
-        game.load.spritesheet(PLAYER_KEY, './assets/images/player.png', 64, 64);
+        game.load.spritesheet(PLAYER_KEY, './assets/images/player.png', 32, 32);
 	};
 
     const create = () => {

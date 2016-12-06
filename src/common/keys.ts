@@ -1,4 +1,5 @@
 //SPRITES
+export const ENEMY_KEY = 'enemy';
 export const PLAYER_ATTACK_SPRITE_KEY = 'player-attack';
 export const PLAYER_IDLE_SPRITE_KEY = 'player-idle';
 export const PLAYER_KEY = 'player';

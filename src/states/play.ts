@@ -11,11 +11,13 @@ import {
 } from '../common/keys';
 
 import { getPlayerFactory, Player } from '../factories/player';
+import { getEnemyFactory, Enemy } from '../factories/enemy';
 
 interface PlayState {
-	player?: Player;
+	enemy?: Enemy;
     inputService?: InputService;
     layer: Phaser.TilemapLayer;
+	player?: Player;
 }
 
 export const playState = (game: Phaser.Game) => {
@@ -25,6 +27,7 @@ export const playState = (game: Phaser.Game) => {
     const factoriesWrapper = (game: Phaser.Game) => {
         return {
             playerFactory: getPlayerFactory(game),
+            enemyFactory: getEnemyFactory(game)
         };
     }
 
@@ -44,7 +47,8 @@ export const playState = (game: Phaser.Game) => {
 
 		const factories = factoriesWrapper(game);
 
-		state.player = factories.playerFactory.create(100,400);
+		state.player = factories.playerFactory.create(100, 400);
+        state.enemy = factories.enemyFactory.create(400, 400);
 
         // Setup input service
 		state.inputService = servicesWrapper(game).inputService;
@@ -57,13 +61,16 @@ export const playState = (game: Phaser.Game) => {
     const update = () => {
         state.inputService.update();
         game.physics.arcade.collide(state.player, state.layer);
+        game.physics.arcade.collide(state.enemy, state.player);
+        game.physics.arcade.collide(state.enemy, state.layer);
 
         state.player.refresh();
+        state.enemy.refresh(state.player);
     }
 
     const render = () => {
         game.debug.bodyInfo(state.player, 32, 32);
-        game.debug.body(state.player);
+        game.debug.body(state.player, "red", false);
     }
 
 	return {
